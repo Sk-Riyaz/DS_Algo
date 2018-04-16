@@ -24,11 +24,11 @@ void revByWord( char *str )
 
    while( NULL != temp && *temp )
    {
-      if( wordBegin == NULL && *temp != ' ' )
+      if( wordBegin == NULL && *temp != '.' )
       {
          wordBegin = temp;
       }
-      if( (NULL != wordBegin) && (*(temp+1) == ' ' || *(temp+1) == '\0') )
+      if( (NULL != wordBegin) && (*(temp+1) == '.' || *(temp+1) == '\0') )
       {
          strrev( wordBegin, temp );
          wordBegin = NULL;
@@ -58,7 +58,7 @@ void revByWordR( char *str )
 
 int main()
 {
-   char arr[] = "  I   am    working";
+   char arr[] = "  I...am....working";
    //revByWord( arr );
    revByWord( arr );
    //revByWord( arr );
