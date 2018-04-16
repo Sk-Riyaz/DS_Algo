@@ -1,51 +1,40 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+
 import java.util.*;
 
-class TestClass
-{
-   public static int gEnergy = -1;
-   public static void maxEnergyIncreasingSS(int arr[], int n,
-         int k, int prevI, int curI, int size, int energy)
-   {
-      if( size >= k )
-      {
-         if( energy > gEnergy )
-            gEnergy = energy;
-         return;
-      }
-
-      if( curI >= n )
-         return;
-
-      if( prevI == -1 )
-      {
-         maxEnergyIncreasingSS(arr, n, k, prevI+1, curI+1, size+1, energy);
-         maxEnergyIncreasingSS(arr, n, k, prevI, curI+1, size, energy);
-      }
-      else
-      {
-         if( arr[curI] < arr[prevI] )
-            return;
-
-         maxEnergyIncreasingSS(arr, n, k, curI, curI+1, size+1, energy+arr[curI]-arr[prevI]);
-         maxEnergyIncreasingSS(arr, n, k, prevI, curI+1, size, energy);
-      }
-   }
-
-   public static void main(String args[] ) throws Exception
-   {
+class TestClass {
+   public static void main(String args[] ) throws Exception {
       Scanner s = new Scanner(System.in);
-      int n, k;
-      n = s.nextInt();
-      k = s.nextInt();
-      s.nextLine();
-      int arr[] = new int[n];
+      int n = s.nextInt();
+      int []arr= new int[n];
+      int []cumm_sum= new int[n];
+      int tot = 0;
       for( int i = 0; i < n; ++i )
-         arr[i] = s.nextInt();
-      s.nextLine();
-      maxEnergyIncreasingSS(arr, n, k, -1, 0, 0, 0);
-      System.out.println(gEnergy);
+      {
+         int val = s.nextInt();
+         if( val % 2 == 1 )
+            arr[i] = 1;
+         else
+            arr[i] = -1;
+
+         tot += arr[i];
+         cumm_sum[i] = tot;
+      }
+
+
+      HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+      int count = 0;
+      for(int i=0; i<n; i++){
+         if (cumm_sum[i] == 0)
+            count++;
+
+         Integer temp = hm.get(cumm_sum[i]);
+         if(temp != null) {
+            count += temp;
+            hm.put(cumm_sum[i], temp+1);
+         } else
+            hm.put(cumm_sum[i], 1);
+      }
+      System.out.println(count);
    }
 }
 
